@@ -1,0 +1,4 @@
+app:
+  aliyun:
+    mns:
+      enable: true
