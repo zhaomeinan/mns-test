@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Notification xmlns="http://mns.aliyuncs.com/doc/v1/">  
+  <TopicOwner>1783322637466422</TopicOwner>  
+  <TopicName>TestTopic</TopicName>  
+  <Subscriber>1783322637466422</Subscriber>  
+  <SubscriptionName>TestSub</SubscriptionName>  
+  <MessageId>1858047C0EFBB853-1-164A1378B35-200000007</MessageId>  
+  <MessageMD5>D56E8E0A94F7B385AE1D6DFBD709195F</MessageMD5>  
+  <Message>aGVsbG8gd29ybGQh</Message>  
+  <PublishTime>1531713129269</PublishTime>  
+  <SigningCertURL>https://mnstest.oss-cn-hangzhou.aliyuncs.com/x509_public_certificate.pem</SigningCertURL>
+</Notification>
+
+
+
+{
+    "Message": "aGVsbG8gd29ybGQhMjIy", 
+    "MessageId": "834207EFB0438E10-1-164A18ED8AF-200000001", 
+    "MessageMD5": "A29FC3709011CB8CE355E72C36E6CBFB", 
+    "PublishTime": "1531718850735", 
+    "Subscriber": "1783322637466422", 
+    "SubscriptionName": "TestSub", 
+    "TopicName": "Test2Topic", 
+    "TopicOwner": "1783322637466422"
+}
+
+
+https://mnstest.oss-cn-hangzhou.aliyuncs.com/x509_public_certificate.pem
