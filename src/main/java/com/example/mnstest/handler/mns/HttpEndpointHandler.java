@@ -1,12 +1,6 @@
 package com.example.mnstest.handler.mns;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -16,7 +10,17 @@ import java.net.URL;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * @Author: zhaomeinan
@@ -62,6 +66,11 @@ public class HttpEndpointHandler {
     }
     cert = new String(Base64.decodeBase64(cert));
 
+    //判断推送请求中x-mns-signing-cert-url所标识的证书地址是否MNS官方给出的
+    if (!cert.startsWith("https://mnstest.oss-cn-hangzhou.aliyuncs.com/")) {
+      return false;
+    }
+
     return authenticate(method, target, hm, cert);
   }
 
@@ -77,13 +86,15 @@ public class HttpEndpointHandler {
   private Boolean authenticate(String method, String uri, Map<String, String> headers,
       String cert) {
     String str2sign = getSignStr(method, uri, headers);
-    //System.out.println(str2sign);
     String signature = headers.get("authorization");
     if (StringUtils.isEmpty(signature)) {
       return false;
     }
     byte[] decodedSign = Base64.decodeBase64(signature);
-    //get cert, and verify this request with this cert
+
+    //后期考虑将公匙正式放到缓存中，优化下面的代码
+    // TODO: 2018/7/20
+
     try {
       //String cert = "http://mnstest.oss-cn-hangzhou.aliyuncs.com/x509_public_certificate.pem";
       URL url = new URL(cert);
